@@ -1,8 +1,19 @@
 # Wind Turbine Simulator — Interactive 3D BEM Physics Simulation
 
-**Live Demo → [wind-turbine-1ef3d.web.app](https://wind-turbine-1ef3d.web.app/)**
+**Live Demo** → [wind-turbine-1ef3d.web.app](https://wind-turbine-1ef3d.web.app/)  
+**GitHub** → [github.com/gasserelnwery-tech/wind-turbine-simulator](https://github.com/gasserelnwery-tech/wind-turbine-simulator)  
+**Stack** → Flutter Web · Dart · Riverpod · BEM Physics · Stable Fluids · Wasm · Firebase Hosting
 
-Real-time interactive 3D wind turbine simulation built with **Flutter Web**. Features a custom software 3D renderer (no WebGL), a Blade Element Momentum (BEM) physics engine with Newton-Raphson iteration, and a 2D wind fluid dynamics solver using the Stable Fluids method.
+Real-time interactive 3D wind turbine simulation built with **Flutter Web**. Features a custom software 3D renderer (no WebGL), Blade Element Momentum (BEM) physics engine with Newton-Raphson iteration, and a 2D wind fluid dynamics solver using the Stable Fluids method.
+
+```bash
+git clone https://github.com/gasserelnwery-tech/wind-turbine-simulator.git
+cd wind_turbine_app
+flutter pub get
+flutter run -d chrome
+```
+
+**Routes** — `/` (simulation) · [`/standards`](https://wind-turbine-1ef3d.web.app/standards) (IEC 61400) · [`/calculator`](https://wind-turbine-1ef3d.web.app/calculator) (wind power)
 
 ---
 
