@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622841012490",
+    "project_id": "wind-turbine-1ef3d",
+    "storage_bucket": "wind-turbine-1ef3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622841012490:android:ec6fab7e4898184826daf3",
+        "android_client_info": {
+          "package_name": "com.example.wind_turbine_sim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeY5DukwQSPSjqsCLiavc-kpb5juoPPD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

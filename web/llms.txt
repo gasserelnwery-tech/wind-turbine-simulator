@@ -1,0 +1,42 @@
+# Wind Turbine Simulator
+
+## What this is
+A real-time interactive 3D wind turbine simulation for Flutter Web. Users adjust turbine parameters (wind speed, rotor radius, blade count, tip speed ratio, pitch angle, air density, power coefficient) and see computed outputs (power, RPM, torque, thrust, swept area, tip speed) with live 3D visualization and 2D wind fluid simulation.
+
+## Physics models
+- **BEM (Blade Element Momentum)**: Actuator disk model with Newton-Raphson iteration for axial induction factor. Computes power from Cp, RPM from TSR, torque from power/RPM, thrust via actuator-disk theory.
+- **Betz limit**: Maximum Cp = 16/27 ≈ 0.593.
+- **5 turbine presets**: Standard 3-blade HAWT, 2-Blade HAWT, 5-Blade HAWT, Darrieus VAWT (lift-based), Savonius VAWT (drag-based).
+- **Fluid solver**: 2D Stable Fluids method (Jos Stam 1999) on 80×80 grid with wake modeling.
+
+## Input ranges
+- Wind speed: 0.5–25 m/s
+- Rotor radius: 0.1–3.0 m
+- Cp: 0.01–0.55
+- Air density: 0.8–1.5 kg/m³
+- TSR: 0.5–10
+- Pitch angle: -5–20 deg
+- Blade count: 2–6
+
+## Outputs
+Power (W), RPM, torque (N·m), thrust (N), swept area (m²), tip speed (m/s), plus performance curves (Power vs wind speed, RPM vs wind speed, Cp vs wind speed with Betz limit line).
+
+## Technology
+- Flutter Web with Riverpod state management
+- Custom software 3D renderer (CustomPainter + Canvas, no WebGL/Three.js)
+- Firebase Hosting (best-effort init, no active backend services)
+
+## Routes
+- `/`: HomePage — simulation viewport + controls panel
+- `/standards`: StandardsPage — IEC 61400 design reference tables
+- `/calculator`: CalculatorPage — wind power formula reference
+
+## External References
+- [Wikipedia: Wind Turbine](https://en.wikipedia.org/wiki/Wind_turbine)
+- [Wikipedia: Blade Element Momentum Theory](https://en.wikipedia.org/wiki/Blade_element_momentum_theory)
+- [Wikipedia: Betz's Law](https://en.wikipedia.org/wiki/Betz%27s_law)
+- [Wikipedia: Actuator Disk Theory](https://en.wikipedia.org/wiki/Actuator_disk)
+- [NREL Wind Research](https://www.nrel.gov/wind/)
+- [IRENA Wind Energy](https://www.irena.org/Energy-Transition/Technology/Wind-energy)
+- [WindEurope](https://windeurope.org/)
+- [IEC 61400 Standards](https://iec.ch/standards/61400)

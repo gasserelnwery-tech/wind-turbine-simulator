@@ -1,0 +1,27 @@
+# Allow AI crawlers for discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Allow all other crawlers
+User-agent: *
+Allow: /
+
+Sitemap: https://wind-turbine-1ef3d.web.app/sitemap.xml

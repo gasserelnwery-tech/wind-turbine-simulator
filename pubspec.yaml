@@ -1,0 +1,24 @@
+name: wind_turbine_sim
+description: Real-time 3D wind turbine simulation for Flutter Web
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.2
+  fl_chart: ^1.2.0
+  google_fonts: ^8.1.0
+  firebase_core: ^4.11.0
+  firebase_crashlytics: ^5.2.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

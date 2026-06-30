@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="Interactive 3D wind turbine simulator featuring Blade Element Momentum (BEM) physics engine. Calculate power output, RPM, torque, and thrust in real-time. Explore HAWT and VAWT designs with adjustable wind speed, rotor radius, blade count, TSR, pitch angle, air density, and Cp. Live 3D visualization and 2D wind fluid dynamics." />
+  <meta name="keywords" content="wind turbine simulator, wind energy calculator, BEM simulation, blade element momentum, HAWT VAWT, wind power calculator, renewable energy simulation, 3D wind turbine, wind speed to power, turbine performance" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="robots" content="index, follow" />
+  <meta name="google-site-verification" content="Xt6auMW63MtXVxWGWJ8MjGKZ-Ccn8bAbWktjK7d-t3E" />
+  <link rel="canonical" href="https://wind-turbine-1ef3d.web.app/" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval' https://*.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; worker-src blob: 'wasm-unsafe-eval'; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://*.gstatic.com; base-uri 'self'; form-action 'self'; frame-src 'none'; object-src 'none'">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wind Turbine Simulator — 3D BEM Physics Wind Energy Calculator" />
+  <meta property="og:description" content="Interactive 3D wind turbine simulation with BEM physics, live performance charts, and 2D fluid dynamics visualization. Calculate wind power, RPM, torque, and thrust in real-time." />
+  <meta property="og:url" content="https://wind-turbine-1ef3d.web.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Wind Turbine Simulator" />
+  <meta property="og:image" content="https://wind-turbine-1ef3d.web.app/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wind Turbine Simulator — 3D BEM Physics Wind Energy Calculator" />
+  <meta name="twitter:description" content="Interactive 3D wind turbine simulation with BEM physics, live performance charts, and 2D fluid dynamics visualization. Calculate wind power, RPM, torque, and thrust in real-time." />
+  <meta name="twitter:image" content="https://wind-turbine-1ef3d.web.app/og-image.svg" />
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Wind Turbine Simulator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires JavaScript. Modern browser with ES6 support.",
+    "description": "Real-time interactive 3D wind turbine simulation with Blade Element Momentum (BEM) physics. Explore HAWT and VAWT turbine designs by adjusting wind speed, rotor radius, blade count, tip speed ratio, pitch angle, air density, and power coefficient. Visualize results through live 3D rendering and 2D wind fluid simulation. Calculate power output, RPM, torque, axial induction factor, and thrust using the actuator disk model with Newton-Raphson iteration.",
+    "url": "https://wind-turbine-1ef3d.web.app/",
+    "author": {
+      "@type": "Person",
+      "name": "Wind Turbine Sim Project"
+    },
+    "educationalLevel": "Undergraduate",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "Student, Engineer, Researcher"
+    },
+    "image": "https://wind-turbine-1ef3d.web.app/og-image.svg",
+    "featureList": "3D turbine rendering, BEM physics engine, 2D wind fluid simulation, HAWT and VAWT support, live performance charts, adjustable turbine parameters, IEC 61400 standards reference, real-time power/RPM/torque/thrust calculation"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a wind turbine simulator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A wind turbine simulator is an educational software tool that models the aerodynamic and mechanical behavior of wind turbines using physics-based calculations. It allows users to adjust parameters like wind speed, blade dimensions, and turbine type to see how these affect power output, RPM, torque, and other performance metrics in real-time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the BEM (Blade Element Momentum) theory work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BEM theory combines blade element theory with momentum theory to predict wind turbine rotor performance. Each blade is divided into segments, and forces are calculated based on local flow conditions. The actuator disk model with Newton-Raphson iteration solves for the axial induction factor, determining how much the wind slows down as it passes through the rotor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between HAWT and VAWT wind turbines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HAWT (Horizontal Axis Wind Turbine) features blades that rotate around a horizontal axis and must yaw to face the wind. VAWT (Vertical Axis Wind Turbine) has blades rotating around a vertical axis and is omnidirectional, eliminating the need for a yaw mechanism. The simulator includes Standard HAWT, High-Speed HAWT, High-Torque HAWT, Darrieus VAWT (egg-beater design), and Savonius VAWT (drag-based) presets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is wind power calculated in the simulation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wind power is calculated using the actuator disk model: P = 0.5 * Cp * \u03c1 * A * V\u00b3, where Cp is the power coefficient (Betz limit \u2264 16/27 \u2248 0.593), \u03c1 is air density, A is the rotor swept area, and V is the wind speed. The simulation uses Newton-Raphson iteration to solve for the axial induction factor a, then computes RPM, torque, and thrust from the resulting flow conditions."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <title>Wind Turbine Simulator — 3D BEM Wind Energy Calculator &amp; Interactive Physics Simulation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body, #flutter_target { width: 100%; height: 100%; overflow: hidden; }
+    body { background: #0d1117; }
+    canvas { display: block; }
+    #loading-screen {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: #0d1117; color: #e6edf3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: system-ui, -apple-system, sans-serif;
+      z-index: 9999; transition: opacity 0.4s ease;
+    }
+    #loading-screen.hidden { opacity: 0; pointer-events: none; }
+    #loading-screen .spinner {
+      width: 32px; height: 32px; margin-bottom: 1.2em;
+      border: 3px solid #30363d; border-top-color: #58a6ff;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-screen h1 { font-size: 1.3em; color: #58a6ff; font-weight: 600; margin-bottom: 0.4em; }
+    #loading-screen p { font-size: 0.85em; color: #8b949e; }
+  </style>
+  <link rel="preload" href="wimp.wasm" as="fetch" type="application/wasm" crossorigin>
+  <link rel="preload" href="wimp.js" as="script" crossorigin>
+  <base href="/">
+</head>
+<body>
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <h1>Wind Turbine Simulator</h1>
+    <p>Loading interactive 3D simulation…</p>
+  </div>
+  <div id="flutter_target"></div>
+  <script>
+    (function() {
+      var target = document.getElementById('flutter_target');
+      var loading = document.getElementById('loading-screen');
+      if (!loading) return;
+      var obs = new MutationObserver(function() {
+        if (target.querySelector('canvas')) {
+          loading.classList.add('hidden');
+          obs.disconnect();
+        }
+      });
+      obs.observe(target, { childList: true, subtree: true });
+      setTimeout(function() { loading.classList.add('hidden'); obs.disconnect(); }, 10000);
+    })();
+  </script>
+  <script src="flutter_bootstrap.js" defer></script>
+
+  <script src="webmcp.js" defer></script>
+  <noscript>
+    <div style="padding: 40px; max-width: 800px; margin: 0 auto; color: #e6edf3; background: #0d1117; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6;">
+      <h1 style="font-size: 2.2em; color: #58a6ff; margin-bottom: 0.5em;">Wind Turbine Simulator — Interactive 3D BEM Physics Simulation</h1>
+      <p style="font-size: 1.15em; margin-bottom: 1.5em;">Explore wind energy with our interactive 3D wind turbine simulator. Adjust parameters like wind speed, rotor radius, blade count, tip speed ratio, pitch angle, air density, and power coefficient to see real-time performance metrics including power output, RPM, torque, and thrust — all powered by a Blade Element Momentum (BEM) physics engine.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">What is a Wind Turbine Simulator?</h2>
+      <p>A wind turbine simulator is an educational tool that models the aerodynamic and mechanical behavior of wind turbines using physics-based calculations. Our simulator implements the Blade Element Momentum (BEM) theory — the industry-standard method for wind turbine design and analysis. The actuator disk model with Newton-Raphson iteration solves for the axial induction factor, providing accurate real-time performance predictions.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Key Features</h2>
+      <ul style="margin-left: 1.5em; margin-bottom: 1.5em;">
+        <li>Real-time 3D rendering with custom software renderer (no WebGL required)</li>
+        <li>Blade Element Momentum (BEM) physics engine with Newton-Raphson axial induction factor solver</li>
+        <li>2D wind fluid dynamics simulation using the Stable Fluids method (Jos Stam) on an 80x80 grid</li>
+        <li>Support for HAWT (Horizontal Axis Wind Turbine) and VAWT (Vertical Axis Wind Turbine) designs</li>
+        <li>5 turbine presets: Standard HAWT, High-Speed HAWT, High-Torque HAWT, Darrieus VAWT, Savonius VAWT</li>
+        <li>Live performance charts showing power output, torque, and thrust vs wind speed</li>
+        <li>Adjustable parameters: wind speed (0-25 m/s), rotor radius, blade count (1-6), tip speed ratio, pitch angle, air density, and power coefficient</li>
+        <li>IEC 61400 standards reference page for wind turbine design specifications</li>
+      </ul>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Blade Element Momentum (BEM) Theory</h2>
+      <p>The BEM theory combines blade element theory with momentum theory to predict the performance of wind turbine rotors. It divides each blade into segments and calculates the forces acting on each segment based on local flow conditions. The actuator disk model treats the rotor as a permeable disk that extracts energy from the wind. The Newton-Raphson method iteratively solves for the axial induction factor <em>a</em>, where a = 1/3 at the Betz limit (maximum theoretical efficiency of 59.3%). From the induction factor, the simulation computes RPM, torque, thrust, and power output.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Turbine Types</h2>
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">HAWT (Horizontal Axis Wind Turbine)</h3>
+      <p>The most common type of wind turbine, featuring blades that rotate around a horizontal axis. HAWTs must yaw to face the wind direction. Our simulator includes three HAWT presets: Standard (3-blade, 6 m/s rated wind speed), High-Speed (optimized for TSR 9, higher RPM), and High-Torque (optimized for TSR 4, higher torque at lower speeds).</p>
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">VAWT (Vertical Axis Wind Turbine)</h3>
+      <p>Blades rotate around a vertical axis, making them omnidirectional and eliminating the need for yaw mechanisms. Includes Darrieus VAWT (egg-beater shaped, lift-based design) and Savonius VAWT (S-shaped, drag-based design with lower efficiency but self-starting capability).</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Wind Power Calculation</h2>
+      <p>The power available in wind is given by P = 0.5 · ρ · A · V³, where ρ is air density (default 1.225 kg/m³ at sea level), A is the rotor swept area (π · R²), and V is the wind speed. The actual power extracted by the turbine is P = Cp · 0.5 · ρ · A · V³, where Cp is the power coefficient, theoretically limited by the Betz limit to 16/27 ≈ 0.593. Our simulator allows Cp values from 0.1 to 0.55 with Newton-Raphson convergence adjusting the effective induction factor.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">IEC 61400 Wind Turbine Standards</h2>
+      <p>The International Electrotechnical Commission (IEC) 61400 series provides design requirements, power performance testing, and acoustic noise measurement standards for wind turbines. Our <a href="/standards" style="color: #58a6ff;">standards reference page</a> includes detailed specifications for power performance (IEC 61400-12-1), wind speed bins, air density corrections, and standard turbine classes (I, II, III) with their reference wind speeds and turbulence categories (A, B, C). For the official standards framework, visit the <a href="https://iec.ch/standards/61400" style="color: #58a6ff;" rel="noopener noreferrer">IEC 61400 series page</a>.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">External Resources</h2>
+      <p>Learn more about wind energy, turbine aerodynamics, and renewable energy from these authoritative sources:</p>
+      <ul style="margin-left: 1.5em; margin-bottom: 1.5em;">
+        <li><a href="https://en.wikipedia.org/wiki/Wind_turbine" style="color: #58a6ff;" rel="noopener noreferrer">Wikipedia: Wind Turbine</a> — comprehensive overview of wind turbine types, designs, and history</li>
+        <li><a href="https://en.wikipedia.org/wiki/Blade_element_momentum_theory" style="color: #58a6ff;" rel="noopener noreferrer">Wikipedia: Blade Element Momentum Theory</a> — detailed explanation of the BEM method used in this simulator</li>
+        <li><a href="https://en.wikipedia.org/wiki/Betz%27s_law" style="color: #58a6ff;" rel="noopener noreferrer">Wikipedia: Betz's Law</a> — the fundamental limit on wind turbine efficiency (Cp = 16/27)</li>
+        <li><a href="https://en.wikipedia.org/wiki/Actuator_disk" style="color: #58a6ff;" rel="noopener noreferrer">Wikipedia: Actuator Disk Theory</a> — the momentum theory behind the simulation's physics engine</li>
+        <li><a href="https://www.nrel.gov/wind/" style="color: #58a6ff;" rel="noopener noreferrer">NREL Wind Research</a> — National Renewable Energy Laboratory's wind energy research programs and data</li>
+        <li><a href="https://www.irena.org/Energy-Transition/Technology/Wind-energy" style="color: #58a6ff;" rel="noopener noreferrer">IRENA Wind Energy</a> — International Renewable Energy Agency wind energy statistics and reports</li>
+        <li><a href="https://windeurope.org/" style="color: #58a6ff;" rel="noopener noreferrer">WindEurope</a> — European wind energy industry association with market data and policy analysis</li>
+      </ul>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Try the Simulator</h2>
+      <p>To experience the full interactive 3D simulation with real-time physics, live charts, and fluid dynamics visualization, please enable JavaScript and visit the <a href="/" style="color: #58a6ff;">main simulator page</a>. You can also explore <a href="/standards" style="color: #58a6ff;">IEC 61400 wind turbine standards</a>, use the <a href="/calculator" style="color: #58a6ff;">wind power calculator</a> for formula reference, or check the FAQ below for quick answers.</p>
+
+      <h2 style="color: #58a6ff; margin-top: 1.5em; margin-bottom: 0.5em;">Frequently Asked Questions</h2>
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">How does a wind turbine convert wind to electricity?</h3>
+      <p>Wind passes over the turbine blades, creating lift (like an airplane wing) which causes the rotor to spin. The rotational energy is transferred through a shaft to a generator, which converts mechanical energy into electrical energy. The power output depends on wind speed, air density, rotor area, and the turbine's power coefficient Cp, which is limited by the Betz limit to 59.3%.</p>
+
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">What is the optimal tip speed ratio for a wind turbine?</h3>
+      <p>The optimal tip speed ratio (TSR) depends on blade count: 2-blade rotors perform best at TSR 6-8, 3-blade at TSR 4-6, and multi-blade designs at lower TSR values (2-4). Optimal TSR balances aerodynamic efficiency with structural and noise constraints. Our simulator provides suggested TSR values when you change blade count.</p>
+
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">How does pitch angle affect turbine performance?</h3>
+      <p>Pitch angle controls the blade's angle of attack relative to the wind. At the optimal pitch, the turbine captures maximum power. Increasing pitch (feathering) reduces lift and power — used above rated wind speed to prevent overload. Decreasing pitch (stalling) also reduces power by causing flow separation. The simulator models this with a Gaussian efficiency curve centered on each turbine type's optimal pitch.</p>
+
+      <h3 style="color: #c9d1d9; margin-top: 1em; margin-bottom: 0.3em;">What is the difference between HAWT and VAWT?</h3>
+      <p>Horizontal Axis Wind Turbines (HAWTs) have blades rotating around a horizontal axis and must yaw to face the wind — they are the most common type (like modern wind farms). Vertical Axis Wind Turbines (VAWTs) have blades rotating around a vertical axis and are omnidirectional, eliminating yaw mechanisms. Darrieus VAWTs use lift forces (egg-beater shape), while Savonius VAWTs use drag forces (S-shape) with lower efficiency but self-starting capability.</p>
+
+      <p style="margin-top: 2em; color: #8b949e; font-size: 0.9em;">© 2026 Wind Turbine Simulator Project. Built with Flutter Web. Physics engine implements Blade Element Momentum with actuator disk model. Explore more on <a href="https://en.wikipedia.org/wiki/Wind_turbine" style="color: #8b949e;" rel="noopener noreferrer">Wikipedia</a>, <a href="https://www.nrel.gov/wind/" style="color: #8b949e;" rel="noopener noreferrer">NREL</a>, and <a href="https://www.irena.org/Energy-Transition/Technology/Wind-energy" style="color: #8b949e;" rel="noopener noreferrer">IRENA</a>.</p>
+    </div>
+  </noscript>
+</body>
+</html>
