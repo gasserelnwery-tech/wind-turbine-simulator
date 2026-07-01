@@ -3,6 +3,11 @@ import 'dart:typed_data';
 import 'fluid_solver.dart';
 import '../core/simulation_engine.dart' show TurbineType;
 
+class StreamPoint {
+  final double x, y, speed;
+  const StreamPoint(this.x, this.y, this.speed);
+}
+
 class WindFluid {
   static const int gridSize = 80;
   final FluidSolver solver;
@@ -19,6 +24,83 @@ class WindFluid {
 
   int get size => gridSize;
   int idx(int x, int y) => x + y * size;
+
+  /// Bilinear interpolation of velocity at fractional grid coordinates
+  (double, double) sampleVelocity(double fx, double fy) {
+    int N = size;
+    double x = fx.clamp(0.5, N - 1.5);
+    double y = fy.clamp(0.5, N - 1.5);
+    int ix = x.floor();
+    int iy = y.floor();
+    double sx = x - ix;
+    double sy = y - iy;
+
+    double u00 = solver.u[idx(ix, iy)];
+    double u01 = solver.u[idx(ix, iy + 1)];
+    double u10 = solver.u[idx(ix + 1, iy)];
+    double u11 = solver.u[idx(ix + 1, iy + 1)];
+    double u = (1 - sx) * ((1 - sy) * u00 + sy * u01) + sx * ((1 - sy) * u10 + sy * u11);
+
+    double v00 = solver.v[idx(ix, iy)];
+    double v01 = solver.v[idx(ix, iy + 1)];
+    double v10 = solver.v[idx(ix + 1, iy)];
+    double v11 = solver.v[idx(ix + 1, iy + 1)];
+    double v = (1 - sx) * ((1 - sy) * v00 + sy * v01) + sx * ((1 - sy) * v10 + sy * v11);
+
+    return (u, v);
+  }
+
+  /// RK4 integration along streamline, returns list of points from start
+  List<StreamPoint> traceStreamline(double x0, double y0,
+      {int maxSteps = 60, double stepSize = 0.6}) {
+    List<StreamPoint> pts = [];
+    double cx = x0, cy = y0;
+    int N = size;
+    for (int i = 0; i < maxSteps; i++) {
+      if (cx < 0.5 || cx >= N - 1.5 || cy < 0.5 || cy >= N - 1.5) break;
+      int ix = cx.round().clamp(0, N - 1);
+      int iy = cy.round().clamp(0, N - 1);
+      if (obstacleMask[idx(ix, iy)] > 0.5) break;
+
+      double normalise(double u, double v) {
+        double m = sqrt(u * u + v * v);
+        return m < 0.001 ? 0.0 : m;
+      }
+
+      var (k1u, k1v) = sampleVelocity(cx, cy);
+      double m1 = normalise(k1u, k1v);
+      if (m1 == 0) break;
+      k1u /= m1; k1v /= m1;
+
+      var (k2u, k2v) = sampleVelocity(cx + 0.5 * stepSize * k1u, cy + 0.5 * stepSize * k1v);
+      double m2 = normalise(k2u, k2v);
+      if (m2 == 0) break;
+      k2u /= m2; k2v /= m2;
+
+      var (k3u, k3v) = sampleVelocity(cx + 0.5 * stepSize * k2u, cy + 0.5 * stepSize * k2v);
+      double m3 = normalise(k3u, k3v);
+      if (m3 == 0) break;
+      k3u /= m3; k3v /= m3;
+
+      var (k4u, k4v) = sampleVelocity(cx + stepSize * k3u, cy + stepSize * k3v);
+      double m4 = normalise(k4u, k4v);
+      if (m4 == 0) break;
+      k4u /= m4; k4v /= m4;
+
+      double du = (k1u + 2 * k2u + 2 * k3u + k4u) / 6;
+      double dv = (k1v + 2 * k2v + 2 * k3v + k4v) / 6;
+      double dm = sqrt(du * du + dv * dv);
+      if (dm < 0.001) break;
+
+      cx += stepSize * du;
+      cy += stepSize * dv;
+
+      // Sample actual speed at new position for coloring
+      var (su, sv) = sampleVelocity(cx, cy);
+      pts.add(StreamPoint(cx, cy, sqrt(su * su + sv * sv)));
+    }
+    return pts;
+  }
 
   void init(double speed) {
     windSpeed = speed;
