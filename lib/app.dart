@@ -14,8 +14,9 @@ class WindTurbineApp extends ConsumerWidget {
       title: 'Wind Turbine Simulator',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      home: const HomePage(),
+      initialRoute: '/',
       routes: {
+        '/': (context) => const HomePage(),
         '/standards': (context) => const _DeferredStandardsPage(),
         '/calculator': (context) => const _DeferredCalculatorPage(),
       },
